@@ -146,8 +146,8 @@ Threshold selected via **Out-of-Fold (OOF) F1 optimization with Recall ≥ 0.80 
 
 ```bash
 # Clone the repository
-git clone https://github.com/Yuliana-wein/Predict-Massive-Transfusion-in-Trauma-PatieUsing-Early-Clinical-Parameters.git
-cd Predict-Massive-Transfusion-in-Trauma-PatieUsing-Early-Clinical-Parameters
+git clone https://github.com/Developer122436/Predict-Massive-Transfusion-in-Trauma-Using-Early-Clinical-Parameters.git
+cd Predict-Massive-Transfusion-in-Trauma-Using-Early-Clinical-Parameters
 
 # Create environment
 conda env create -f environment.yaml
