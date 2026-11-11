@@ -1,6 +1,6 @@
 # 🩸 Predicting Massive Transfusion in Trauma Patients Using Early Clinical Parameters
 
-[![Python](https://img.shields.io/badge/Python-3.10-blue?logo=python)](https://www.python.org/)
+[![Python](https://img.shields.io/badge/Python-3.11-blue?logo=python)](https://www.python.org/)
 [![XGBoost](https://img.shields.io/badge/XGBoost-1.7-orange)](https://xgboost.readthedocs.io/)
 [![scikit-learn](https://img.shields.io/badge/scikit--learn-1.3-green)](https://scikit-learn.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
@@ -107,6 +107,11 @@ XGBClassifier(
 
 Threshold selected via **Out-of-Fold (OOF) F1 optimization with Recall ≥ 0.80 constraint**.
 
+<p align="center">
+  <img src="outputs/figures/08_roc_curve.png" width="45%" alt="ROC curve">
+  <img src="outputs/figures/12_permutation_importance.png" width="45%" alt="Permutation importance">
+</p>
+
 ---
 
 ## 🏥 Clinical Interpretation
@@ -153,17 +158,21 @@ cd Predict-Massive-Transfusion-in-Trauma-Using-Early-Clinical-Parameters
 conda env create -f environment.yaml
 conda activate trauma-ml
 
-# Launch notebooks
+# Launch notebooks (run them in order, 01 → 06, from the NOTEBOOKS/ folder)
+cd NOTEBOOKS
 jupyter notebook
 ```
+
+`02_Preprocessing.ipynb` writes `preprocessed_data.pkl`, which notebooks 03–06 load.
 
 ---
 
 ## 📁 Project Structure
 
 ```
-├── data/
-│   └── CRASH2_Final_Dataset.xlsx      # Synthetic dataset (n=1000)
+├── Dataset/
+│   └── CRASH2_Final_Dataset.xlsx      # Synthetic dataset used by the notebooks (n=1000)
+├── data/                              # Earlier dataset versions (raw/ = original export)
 ├── NOTEBOOKS/
 │   ├── 01_EDA.ipynb
 │   ├── 02_Preprocessing.ipynb
@@ -173,7 +182,10 @@ jupyter notebook
 │   └── 06_ChoosingTheModel.ipynb
 ├── outputs/
 │   └── figures/                       # Saved plots
+├── Presentation/
+│   └── MT_Prediction_ML_Project_Final.pptx
 ├── environment.yaml
+├── LICENSE
 └── README.md
 ```
 
@@ -202,18 +214,7 @@ Technion AI Developer Course, 2026
 **Goal:** Can ML outperform the ABC Score in predicting Massive Transfusion from early clinical parameters?  
 **Answer: Yes — significantly.**
 
-
----
-
-
-### Final Results
-
-| Model | ROC-AUC | Recall (MT) |
-|-------|---------|-------------|
-| ABC Score (baseline) | 0.747 | 0.38 |
-| Logistic Regression | 0.880 | 0.78 |
-| Random Forest | 0.883 | 0.80 |
-| **XGBoost (final)** | **0.902** | **0.80** |
+### Key Takeaways
 
 - XGBoost with threshold = 0.44 finds **40 out of 50 MT patients** (Recall = 80%)
 - ABC Score missed **62% of MT patients** — unacceptable for a screening tool
