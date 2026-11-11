@@ -164,7 +164,7 @@ jupyter notebook
 ```
 ├── data/
 │   └── CRASH2_Final_Dataset.xlsx      # Synthetic dataset (n=1000)
-├── notebooks/
+├── NOTEBOOKS/
 │   ├── 01_EDA.ipynb
 │   ├── 02_Preprocessing.ipynb
 │   ├── 03_LogisticRegression.ipynb
