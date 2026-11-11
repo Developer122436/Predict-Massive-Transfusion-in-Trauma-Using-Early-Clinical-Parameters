@@ -30,7 +30,7 @@ Synthetic dataset inspired by the CRASH-2 trial design (n = 1,000 patients).
 | Train | 800  | 200 | 600 |
 | Test  | 200  | 50  | 150 |
 
-Class ratio: **1:3 (MT : Non-MT)** — reflecting realistic trauma registry prevalence.
+Class ratio: **1:3 (MT : Non-MT)**, i.e. 25% positive cases. The synthetic dataset intentionally oversamples massive transfusion events compared with typical clinical prevalence (~3–5%). Consequently, precision and other prevalence-dependent metrics may differ substantially in real clinical settings.
 
 **Features used for modeling (6):**
 
@@ -132,9 +132,10 @@ Threshold selected via **Out-of-Fold (OOF) F1 optimization with Recall ≥ 0.80 
 ## ⚠️ Limitations
 
 1. **Synthetic dataset** — performance on real institutional data is unknown
-2. **No GCS** — excluded due to 40% missingness; real models would impute or include it
-3. **Precision = 0.62** — 1 in 3 MT alerts is a false positive; insufficient for standalone clinical use
-4. **Gray zone overlap** — ~43% of cases intentionally created with overlapping feature distributions, simulating real clinical uncertainty
+2. **Oversampled positives** — 25% MT cases vs ~3–5% in practice; at real prevalence, precision (0.62 here) would be considerably lower
+3. **No GCS** — excluded due to 40% missingness; real models would impute or include it
+4. **Precision = 0.62** — 1 in 3 MT alerts is a false positive; insufficient for standalone clinical use
+5. **Gray zone overlap** — ~43% of cases intentionally created with overlapping feature distributions, simulating real clinical uncertainty
 
 ---
 
@@ -212,7 +213,7 @@ Technion AI Developer Course, 2026
 ## Conclusions
 
 **Goal:** Can ML outperform the ABC Score in predicting Massive Transfusion from early clinical parameters?  
-**Answer: Yes — significantly.**
+**Answer:** In this experiment, yes — XGBoost outperformed the ABC Score on the held-out test set (ROC-AUC 0.902 vs 0.747; recall 0.80 vs 0.38). No formal significance test was performed, and because the data is synthetic, this does not establish real-world clinical performance.
 
 ### Key Takeaways
 
@@ -221,4 +222,4 @@ Technion AI Developer Course, 2026
 - Ensemble methods (Voting, Stacking) did not outperform XGBoost alone
 - Top predictors: **Lactate** and **Heart Rate** — confirmed across all models
 
-> *ML-based early warning can double the detection rate of Massive Transfusion compared to the current clinical standard.*
+> *On this synthetic dataset, the ML model detected about twice as many Massive Transfusion cases as the ABC Score. Validation on real clinical data is required before drawing clinical conclusions.*
